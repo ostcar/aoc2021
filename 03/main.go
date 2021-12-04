@@ -43,6 +43,7 @@ func task1(in string) string {
 		}
 	}
 
+	// The second value can be calculated from the first.
 	maxNumber := (1 << bits) - 1
 	result := value * (maxNumber - value)
 
@@ -63,13 +64,22 @@ func task2(in string) string {
 	return fmt.Sprint(v1 * v2)
 }
 
+// task2Filter applys the filter for the second task.
+//
+// For this filter to work, the input values have to be sorted.
+//
+// Look for the index of the first value '1'. If it is on the first half of the
+// list, then there are more values with '1'. If it is on the second half, then
+// there are more values with '0'.
+//
+// cmp is a function to check which half to use. It should be '>' for the first
+// value and '<=' for the second value.
 func task2Filter(input []string, cmp func(a, b int) bool) int {
 	for i := 0; i < len(input[0]) && len(input) > 1; i++ {
 		cut := sort.Search(len(input), func(n int) bool {
 			return input[n][i] == '1'
 		})
 
-		//if cut > len(input)/2 {
 		if cmp(cut, len(input)/2) {
 			input = input[:cut]
 		} else {
