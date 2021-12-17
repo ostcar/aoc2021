@@ -29,10 +29,8 @@ func task2(input string) string {
 	template, methods := parse(input)
 
 	pairs := process(template, methods, 40)
-	fmt.Println(pairs)
 
 	max, min := minMax(pairs, template[len(template)-1])
-	fmt.Println(max, min)
 
 	return fmt.Sprint(max - min)
 }
